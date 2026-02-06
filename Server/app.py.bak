@@ -45,8 +45,8 @@ app.config['SECRET_KEY'] = 'asdfghjkl'
 db_config = {
     'host': 'localhost',
     'user': 'postgres',
-    'password': 'Rishu@raj27',
-    'dbname': 'flask_demo'
+    'password': '12345',
+    'dbname': 'demo_flask'
 }
 
 # --- Utility: Database connection ---

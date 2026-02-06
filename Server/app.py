@@ -10,8 +10,8 @@ CORS(app)
 db_config = {
     'host': 'localhost',
     'user': 'postgres',
-    'password': 'Rishu@raj27',
-    'dbname': 'flask_demo'
+    'password': '12345',
+    'dbname': 'demo_flask'
 }
 
 def get_db_connection():
