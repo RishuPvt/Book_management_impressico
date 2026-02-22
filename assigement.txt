@@ -1,0 +1,71 @@
+#Assigement 1 - Add edition
+
+STEP 1: Add edition column in PostgreSQL
+
+
+ALTER TABLE book
+ADD COLUMN edition VARCHAR(50);
+
+STEP 2: Update Flask POST API (/create)
+
+STEP 3: Update UPDATE API too (/update)
+
+STEP 4: Update Book.jsx in client react code
+STEP 5: Update CreateBook.jsx file in client react
+
+STEP 6: Update updateBook.jsx file in client react
+
+
+
+
+
+#Assigement 5  - search
+
+//hook
+const [search, setSearch] = useState("");
+
+
+ //  Search logic
+const filteredBooks = books.filter((book) =>
+    book.name.toLowerCase().includes(search.toLowerCase()) ||
+    book.publisher.toLowerCase().includes(search.toLowerCase())
+);
+
+// Search Input  Field
+<input
+    type="text"
+    placeholder="Search by book or publisher..."
+    className="form-control mb-3"
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+/>
+
+// Map on filteredBooks  instead of books.map
+
+
+
+#Assigement 2 - Jwt implementation
+
+Step 1: Install required packages
+
+step 2 : Updated Backend Code with JWT
+
+        Add REGISTER and LOGIN user handler 
+        Configure JWT
+        app.config['JWT_SECRET_KEY'] = 'super-secret-key'  # move to env in real apps
+        jwt = JWTManager(app)
+        PROTECTED ROUTES
+
+step 3: Create Users Table in PostgreSQL
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    password TEXT NOT NULL
+);
+
+step 4:  install axios in react 
+step 5 : create login.jsx and register.jsx
+
+step 6 : send Token with every req

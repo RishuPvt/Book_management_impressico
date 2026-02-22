@@ -5,19 +5,24 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const UpdateBook = () => {
     const location = useLocation();
     const book = location.state.book;
-
+const token = localStorage.getItem("token"); //get token
     const [values, setValues] = useState({
         publisher: book.publisher,
         name: book.name,
         date: book.date,
-        cost: book.cost
+        cost: book.cost,
+        edition: book.edition
     });
 
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(`http://localhost:5000/update/${book.id}`, values)
+        axios.put(`http://localhost:5000/update/${book.id}`, values , {
+      headers: {
+        Authorization: `Bearer ${token}`, //  sending Token with every req
+      },
+    })
             .then(res => navigate('/'))
             .catch(err => console.log(err));
     }
@@ -63,6 +68,16 @@ const UpdateBook = () => {
                         name="cost"
                         value={values.cost}
                         onChange={(e) => setValues({ ...values, cost: e.target.value })}
+                    />
+                </div>
+                    <div className="mb-3">
+                    <label htmlFor="edition" className="form-label">edition:</label>
+                    <input type="text"
+                        className="form-control"
+                        placeholder="edition"
+                        name="edition"
+                        value={values.edition}
+                        onChange={(e) => setValues({ ...values, edition: e.target.value })}
                     />
                 </div>
                 <button type="submit" className="btn btn-primary">Update</button>

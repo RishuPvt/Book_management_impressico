@@ -7,12 +7,20 @@ const CreateBook = () => { // defined the functional component named createbook
         publisher:"",
         name:"",
         date:'',
-        cost:''
+        cost:'',
+        edition:""
     })
+    const token = localStorage.getItem("token"); //get token
     const navigate = useNavigate() // navigate to the home page
     const handleSubmit= (e) =>{    // event handler to handle form submission
         e.preventDefault()        // prevent default form submission
-        axios.post('http://localhost:5000/create', values) // sends the post request to the server
+        axios.post('http://localhost:5000/create', values ,
+             {
+      headers: {
+        Authorization: `Bearer ${token}`, //  sending Token with every req
+      },
+    }
+        ) // sends the post request to the server
         .then(res => navigate('/'))                        // on successful response user will be navigated to the home page 
         .catch(err => console.log(err))                    //logs error occur during request
     }
@@ -60,6 +68,16 @@ const CreateBook = () => { // defined the functional component named createbook
                      class="form-control"
                     name="name" 
                     onChange={(e)=> setValues({...values, cost: e.target.value})}
+                    />
+                </div>
+                   <div class="mb-3">
+                    <label htmlFor="edition" 
+                    class="form-label">edition:
+                    </label>
+                    <input type="edition" 
+                     class="form-control"
+                    name="name" 
+                    onChange={(e)=> setValues({...values, edition: e.target.value})}
                     />
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
