@@ -23,10 +23,11 @@ app.config["JWT_SECRET_KEY"] = "asdfghjkl"
 jwt = JWTManager(app)
 
 db_config = {
-    'host' :"host.docker.internal",
-    'user': 'postgres',
-    'password': 'Rishu@raj27',
-    'dbname': 'flask_demo'
+    'host' : "postgres",
+    'user': 'admin',
+    'password': 'admin123',
+    'dbname': 'mydb',
+    "port": 5432
 }
 
 def get_db_connection():
@@ -120,7 +121,7 @@ def login():
 def get_books():
     connection = get_db_connection()
     cursor = connection.cursor(cursor_factory=RealDictCursor)
-    cursor.execute("SELECT * FROM book")
+    cursor.execute("SELECT * FROM books")
     result = cursor.fetchall()
     cursor.close()
     connection.close()
@@ -133,7 +134,7 @@ def create_books():
     new_book = request.get_json()
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO book (publisher, name, date, cost, edition) VALUES (%s, %s, %s, %s ,%s)", (new_book['publisher'], new_book['name'], new_book['date'],new_book['cost'],  new_book['edition']))
+    cursor.execute("INSERT INTO books (publisher, name, date, cost, edition) VALUES (%s, %s, %s, %s ,%s)", (new_book['publisher'], new_book['name'], new_book['date'],new_book['cost'],  new_book['edition']))
     connection.commit()
     cursor.close()
     connection.close()
@@ -145,7 +146,7 @@ def update_book(id):
     updated_book = request.get_json()
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute("UPDATE book SET publisher=%s, name=%s, date=%s , cost=%s , edition=%s WHERE id=%s ", (updated_book['publisher'], updated_book['name'], updated_book['date'], updated_book['cost'],  updated_book['edition'],id))
+    cursor.execute("UPDATE books SET publisher=%s, name=%s, date=%s , cost=%s , edition=%s WHERE id=%s ", (updated_book['publisher'], updated_book['name'], updated_book['date'], updated_book['cost'],  updated_book['edition'],id))
     connection.commit()
     cursor.close()
     connection.close()
@@ -156,7 +157,7 @@ def update_book(id):
 def delete_book(id):
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute("DELETE FROM book WHERE id=%s", (id,))
+    cursor.execute("DELETE FROM books WHERE id=%s", (id,))
     connection.commit()
     cursor.close()
     connection.close()

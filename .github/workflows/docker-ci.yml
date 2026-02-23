@@ -1,0 +1,29 @@
+name: CI - Docker Build Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build Backend Image
+      run: docker build -t flask_backend ./Server
+
+    - name: Build Frontend Image
+      run: docker build -t react_frontend ./Client
+
+    - name: Validate docker-compose
+      run: docker compose config

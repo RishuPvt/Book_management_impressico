@@ -2,11 +2,18 @@ version: "3.9"
 
 services:
   backend:
-    build:  ./Server
+    build: ./Server
     container_name: flask_backend
     ports:
       - "5000:5000"
     restart: always
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_NAME: mydb
+      DB_USER: admin
+      DB_PASSWORD: admin123
 
   frontend:
     build: ./Client
@@ -16,3 +23,19 @@ services:
     depends_on:
       - backend
     restart: always
+
+  postgres:
+    image: postgres:15
+    container_name: my-postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  pgdata:
