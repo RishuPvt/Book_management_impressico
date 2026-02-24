@@ -13,3 +13,6 @@ CREATE TABLE IF NOT EXISTS books (
     date DATE NOT NULL,
     cost DECIMAL(10, 2) NOT NULL
 );
+
+ALTER TABLE books
+ADD COLUMN edition VARCHAR(50);

@@ -2,7 +2,6 @@
 
 STEP 1: Add edition column in PostgreSQL
 
-
 ALTER TABLE book
 ADD COLUMN edition VARCHAR(50);
 
@@ -14,9 +13,6 @@ STEP 4: Update Book.jsx in client react code
 STEP 5: Update CreateBook.jsx file in client react
 
 STEP 6: Update updateBook.jsx file in client react
-
-
-
 
 
 #Assigement 5  - search
